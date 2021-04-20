@@ -20,7 +20,7 @@ class Home extends React.Component {
       const {
         children: [ , , { children: exhibition } ]
       } = new XMLParser().parseFromString(response.data);
-      const dgShow = exhibition.splice(1,12);
+      const dgShow = exhibition.splice(1,6);
       this.setState(
           { 
             exhiLast: exhibition, // 남은 원본
@@ -37,15 +37,15 @@ class Home extends React.Component {
 
   handleMore = () => {
     const { dgList, exhiLast } = this.state;
-    const exhiMore = exhiLast.splice(1,12);
-    //const exhiPush = dgList.push(...exhiMore);
-    this.setState({dgList: exhiMore});
-    console.log(exhiMore);
+    const exhiMore = exhiLast.splice(1,6);
+    const exhiPush = dgList.concat(exhiMore);
+    // concat 기존 배열에 추가, state에 push() 와 같은 함수는 안됨!
+    this.setState({ dgList: exhiPush });
+    console.log(exhiPush);
   }
 
   render() {
-    const { isLoading, dgList, exhiLast } = this.state;
-    
+    const { isLoading, dgList, exhiLast } = this.state;    
     return(
       <section className="container">
       { isLoading
@@ -55,17 +55,18 @@ class Home extends React.Component {
           </div>
         ) : (
           <Fragment>
-          {/* <div className="movies">
+          {<div className="movies">
             { dgList.map((evt, index) => 
               (
                 <Food 
                   key={index} 
                   name={evt.children[1].value}
-                  place={evt.children[7].value}
+                  place={evt.children[6].value}
+                  numb={index}
                 />
               ) 
             )}
-          </div> */}
+          </div>}
           <button onClick={this.handleMore}>더보기</button>
           </Fragment>
         )}

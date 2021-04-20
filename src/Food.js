@@ -2,10 +2,11 @@ import React from 'react';
 //import PropTypes from 'prop-types';
 //import "./Movie.css";
 
-function Food({ name }) {
+function Food({ name, place, numb }) {
   return (
     <div className="movie">
-      <p>{ name }</p> 
+      <h3>{name}</h3> 
+      <p>{place}{numb}</p>
     </div>
   );
 }
