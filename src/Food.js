@@ -5,7 +5,7 @@ import React from 'react';
 function Food({ name }) {
   return (
     <div className="movie">
-      <p>{name}</p>
+      <p>{ name }</p> 
     </div>
   );
 }

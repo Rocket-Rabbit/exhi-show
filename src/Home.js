@@ -19,7 +19,7 @@ class Home extends React.Component {
       const {
         children: [ , , { children: exhibition } ]
       } = new XMLParser().parseFromString(response.data);
-      const dgShow = exhibition.slice(1,11); 
+      const dgShow = exhibition.slice(1,10);
       //dgShow.slice(1, 12);
       this.setState({ dgList: dgShow, isLoading: false });
       //console.log(this.state.dgList);
