@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import axios from 'axios';
 import XMLParser from 'react-xml-parser';
 import Food from './Food';
@@ -11,18 +11,23 @@ class Home extends React.Component {
   state = {
     isLoading: true,
     dgList: [],
+    exhiLast: []
   }
 
   getMovies = async () => {
     await axios.get('http://dgfc.or.kr/performance/xml/calenderMonth.asp?year=2021&month=04').then((response) => {
-      // 화살표 함수로 바인딩.
+      //화살표 함수로 바인딩.
       const {
         children: [ , , { children: exhibition } ]
       } = new XMLParser().parseFromString(response.data);
-      const dgShow = exhibition.slice(1,10);
-      //dgShow.slice(1, 12);
-      this.setState({ dgList: dgShow, isLoading: false });
-      //console.log(this.state.dgList);
+      const dgShow = exhibition.splice(1,12);
+      this.setState(
+          { 
+            exhiLast: exhibition, // 남은 원본
+            dgList: dgShow, //추출, 추출 후 원본은 남은 값이 저장됨.
+            isLoading: false, 
+          }
+        );
     });    
   }
 
@@ -30,9 +35,17 @@ class Home extends React.Component {
     this.getMovies();
   }
 
+  handleMore = () => {
+    const { dgList, exhiLast } = this.state;
+    const exhiMore = exhiLast.splice(1,12);
+    //const exhiPush = dgList.push(...exhiMore);
+    this.setState({dgList: exhiMore});
+    console.log(exhiMore);
+  }
+
   render() {
-    const { isLoading, dgList } = this.state;
-    console.log(dgList);
+    const { isLoading, dgList, exhiLast } = this.state;
+    
     return(
       <section className="container">
       { isLoading
@@ -41,7 +54,8 @@ class Home extends React.Component {
             <span className="loader_text">Loading</span>
           </div>
         ) : (
-          <div className="movies">
+          <Fragment>
+          {/* <div className="movies">
             { dgList.map((evt, index) => 
               (
                 <Food 
@@ -51,7 +65,9 @@ class Home extends React.Component {
                 />
               ) 
             )}
-          </div>
+          </div> */}
+          <button onClick={this.handleMore}>더보기</button>
+          </Fragment>
         )}
     </section>
     );
