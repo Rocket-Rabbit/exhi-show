@@ -10,6 +10,7 @@ import Food from './Food';
 class Home extends React.Component {  
   state = {
     isLoading: true,
+    isScroll: false,
     dgList: [],
     exhiLast: []
   }
@@ -36,25 +37,28 @@ class Home extends React.Component {
     this.getMovies();
   }
   
-  componentDidUpdate() {    
-    let screen = document.getElementById("root");
-    screen.scrollIntoView({ block: "end" });
-    // state 변화시 반응.
+  componentDidUpdate() { 
+    const { isScroll } = this.state;
+    if( isScroll )  {
+      let screen = document.getElementById("news");
+      screen.scrollIntoView({ block: "end" });
+      // state 변화시 반응.
+    }
+    console.log(this.state.isScroll);
   }
 
-
   handleMore = () => {
-    const { dgList, exhiLast } = this.state;
+    const { dgList, exhiLast, isScroll } = this.state;
     let exhiMore = exhiLast.splice(1,6);
     let exhiPush = dgList.concat(exhiMore);
     // concat 기존 배열에 추가, state에 push()와 같은 함수는 안됨!
-    this.setState({ dgList: exhiPush });
+    this.setState({ dgList: exhiPush, isScroll: true });
   }
 
   render() {
     const { isLoading, dgList } = this.state;    
     return(
-      <section className="container">
+      <section  className="container">
       { isLoading
         ? (
           <div className="loader">
@@ -62,7 +66,7 @@ class Home extends React.Component {
           </div>
         ) : (
           <Fragment>
-          <div className="movies">
+          <div className="movies" id="news">
             { dgList.map((evt, index) => 
               (
                 <Food 
@@ -74,9 +78,8 @@ class Home extends React.Component {
                 />
               ) 
             )}
-          </div>
-          
           <button onClick={this.handleMore}>더보기</button>
+          </div>         
           
           </Fragment>
         )}
