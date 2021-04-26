@@ -6,7 +6,9 @@ function App() {
   return (
     <Fragment>
       <div className="left-heading">
-        <p className="nail-heading">대구광역시 공공데이터 활용 프로젝트</p>
+        <p className="nail-heading">
+          <span>대구광역시 공공데이터 활용</span>
+        </p>
         <h2>대구광역시<br/>
         공연일정</h2>
         <div className="dg-loc">

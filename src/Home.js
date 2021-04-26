@@ -21,20 +21,23 @@ class Home extends React.Component {
       const {
         children: [ , , { children: exhibition } ]
       } = new XMLParser().parseFromString(response.data);
-      const dgShow = exhibition.splice(1,6);
-      console.log(dgShow);
+      const dgShow = exhibition.splice(1,5);
+      // console.log(dgShow);
       this.setState(
-          { 
-            exhiLast: exhibition, // 남은 원본
-            dgList: dgShow, //추출, 추출 후 원본은 남은 값이 저장됨.
-            isLoading: false, 
-          }
-        );
+        { 
+          exhiLast: exhibition, // 남은 원본
+          dgList: dgShow, //추출, 추출 후 원본은 남은 값이 저장됨.
+          isLoading: false,
+        }
+      );
     });
   }
 
   componentDidMount() {
-    this.getMovies();
+    
+    setTimeout(() => {
+      this.getMovies()
+      }, 1200) // 시간. 2초 후 실행
   }
   
   componentDidUpdate() { 
@@ -44,12 +47,12 @@ class Home extends React.Component {
       screen.scrollIntoView({ block: "end" });
       // state 변화시 반응.
     }
-    console.log(this.state.isScroll);
+    //console.log(this.state.isScroll);
   }
 
   handleMore = () => {
     const { dgList, exhiLast, isScroll } = this.state;
-    let exhiMore = exhiLast.splice(1,6);
+    let exhiMore = exhiLast.splice(1,5);
     let exhiPush = dgList.concat(exhiMore);
     // concat 기존 배열에 추가, state에 push()와 같은 함수는 안됨!
     this.setState({ dgList: exhiPush, isScroll: true });
@@ -62,7 +65,6 @@ class Home extends React.Component {
       { isLoading
         ? (
           <div className="loader">
-            <span className="loader_text">Loading</span>
           </div>
         ) : (
           <Fragment>
@@ -78,7 +80,7 @@ class Home extends React.Component {
                 />
               ) 
             )}
-          <button onClick={this.handleMore}>더보기</button>
+          <button onClick={this.handleMore} className="btn-more">더보기</button>
           </div>         
           
           </Fragment>
