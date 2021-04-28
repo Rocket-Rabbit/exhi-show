@@ -16,7 +16,7 @@ class Home extends React.Component {
   }
 
   getMovies = async () => {
-    await axios.get('http://dgfc.or.kr/performance/xml/calenderMonth.asp?year=2021&month=04').then((response) => {
+    await axios.get('https://cors-anywhere.herokuapp.com/http://dgfc.or.kr/performance/xml/calenderMonth.asp?year=2021&month=04').then((response) => {
       //화살표 함수로 바인딩.
       const {
         children: [ , , { children: exhibition } ]
