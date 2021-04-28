@@ -12,10 +12,10 @@ function App() {
         <h2>대구광역시<br/>
         공연일정</h2>
         <div className="dg-loc">
-          <span>대구오페라하우스</span>
-          <span>대구문화예술회관</span>
-          <span>대구코오롱야외음악당</span>
-          <span>대구예술발전소</span>
+            <span>대구오페라하우스</span>
+            <span>대구문화예술회관</span>
+            <span>대구코오롱야외음악당</span>
+            <span>대구예술발전소</span>
         </div>
       </div>
       <Home />
